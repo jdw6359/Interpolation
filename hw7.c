@@ -4,8 +4,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
 #include <string.h>
+
+#include "interp.h"
 
 int main(int argc, char *argv[]){
 
@@ -29,8 +30,20 @@ int main(int argc, char *argv[]){
 				return 2;
 
 			}else{
+				if((strcmp(argv[1], "-nak")==0)){
+					fprintf(stdout, "Starting nak\n");
 
 
+				}
+				if((strcmp(argv[1],"-natural")==0)){
+					fprintf(stdout,"Starting natural\n");
+
+
+				}
+				if((strcmp(argv[1],"-clamped")==0)){
+					fprintf(stdout,"Starting clamped\n");
+
+				}
 
 
 			}
@@ -42,11 +55,14 @@ int main(int argc, char *argv[]){
 
 
 		/* Check to see that argv[1] is "-e" */
-		if(strcmp(argv[1],"-e")==0){
+		else if(strcmp(argv[1],"-e")==0){
 
 		}
 		/* end check for "-e" */
+		else{
+			fprintf(stdout,"hw7 takes agruments of -nak, -natural, -clamped, and -e\n");
 
+		}
 
 
 
