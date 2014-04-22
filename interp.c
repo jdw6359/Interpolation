@@ -7,6 +7,7 @@
 
 
 #include "interp.h"
+#include "Dynamic.h"
 
 /* CSplines Struct:
  * int N       number of elements in array
@@ -25,7 +26,7 @@
  * int NExt    index to next point in array
  */
 
-
+static void tridiagonal();
 
 /* Finds the coefficients of the clamped cubic spline for a given set of data */
 extern void cspline_clamped(Points *data, double derivA, double derivB, CSplines *splines){

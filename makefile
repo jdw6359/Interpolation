@@ -8,8 +8,8 @@ FILE= data.txt
 make: hw7
 
 
-hw7: hw7.o interp.o
-	$(CC) $(CFLAGS) -o hw7 hw7.o interp.o
+hw7: hw7.o interp.o Dynamic.o
+	$(CC) $(CFLAGS) -o hw7 hw7.o interp.o Dynamic.o
 
 
 hw7.o: hw7.c
@@ -18,6 +18,8 @@ hw7.o: hw7.c
 interp.o: interp.c
 	$(CC) $(CFLAGS) -c interp.c
 
+Dynamic.o: Dynamic.c
+	$(CC) $(CFLAGS) -c Dynamic.c
 
 
 

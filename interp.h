@@ -84,8 +84,6 @@ extern double cspline_eval( double, CSplines* );
           value of spline at desired point x
 *****************************************************************************************/
 
-
-static void tridiagonal();
 /*****************************************************************************
  tridiagonal
 	Solves a tridiagonal system of equations to find the c parameters of

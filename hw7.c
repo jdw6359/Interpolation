@@ -7,6 +7,8 @@
 #include <string.h>
 
 #include "interp.h"
+#include "Dynamic.h"
+
 
 int main(int argc, char *argv[]){
 
@@ -33,7 +35,9 @@ int main(int argc, char *argv[]){
 				/* Declare devivA and derivB values (first two values in file */
 
 				/* Declare a points variable */
+				Points points;
 
+				CreatePoints(&points);
 
 
 
