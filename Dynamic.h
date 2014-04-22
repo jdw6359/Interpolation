@@ -9,7 +9,7 @@
 
 void CreatePoints(Points *points);
 
-unsigned int PushToPoints(Points *points, double X, double Y);
+unsigned int PushToPoints(Points *points, double *X, double *Y);
 
 void DestroyPoints(Points *points);
 

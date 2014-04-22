@@ -33,11 +33,30 @@ int main(int argc, char *argv[]){
 
 			}else{
 				/* Declare devivA and derivB values (first two values in file */
+				double derivA, derivB;
 
 				/* Declare a points variable */
 				Points points;
 
+				/* Values to be scanned in */
+				double xVal, yVal;
+
+				/* Call to create points structure */
 				CreatePoints(&points);
+
+
+				/* Scan the first two values for deriv at A and B */
+				fscanf(inputFile, "%lf %lf", &derivA, &derivB);
+
+
+				while(fscanf(inputFile, "%lf %lf", &xVal, &yVal)!=EOF){
+
+
+					fprintf(stdout, "Scanned in %g and %g\n", xVal, yVal);
+					PushToPoints(&points, &xVal, &yVal);
+
+				}
+
 
 
 
