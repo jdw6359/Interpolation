@@ -30,6 +30,19 @@ int main(int argc, char *argv[]){
 				return 2;
 
 			}else{
+				/* Declare devivA and derivB values (first two values in file */
+
+				/* Declare a points variable */
+
+
+
+
+
+
+
+
+
+
 				if((strcmp(argv[1], "-nak")==0)){
 					fprintf(stdout, "Starting nak\n");
 
