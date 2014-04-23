@@ -41,9 +41,6 @@ void CreateSpline(CSplines *spline){
 }
 /* End create spline */
 
-
-
-
 unsigned int PushToPoints(Points *points, double *X, double *Y){
 
 
@@ -86,7 +83,24 @@ unsigned int PushToPoints(Points *points, double *X, double *Y){
 }
 /* End push to points */
 
+
+unsigned int PushToSpline(CSplines *spline, double *a, double *b, double *c, double *d, double *X){
+
+
+	return 0;
+}
+/* End push to spline */
+
+
 void DestroyPoints(Points *points){
 
 }
 /* End destroy points */
+
+
+void DestroySpline(CSplines *spline){
+
+}
+/* End destroy spline */
+
+

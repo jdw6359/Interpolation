@@ -56,11 +56,8 @@ extern void cspline_natural(Points *points, CSplines *spline){
 	/* Declare values for counters */
 	int row, col, j, startingCol, count;
 
-	/* Declare values that will be put into our linear system */
-	double hValue,alpha;
-
-	/* Declare the coefficient values that will be solved for */
-	double A,B,C,D;
+	/* Declare values that will be put into our linear system as well as C, our Coeficient that we solve for */
+	double hValue,alpha, Cj, Cj1;
 
 
 	/* Make calls to allocate memory for matrices and vectors */
@@ -119,17 +116,21 @@ extern void cspline_natural(Points *points, CSplines *spline){
 	tridiagonal(points, spline, matrix, right, solution, numRows);
 
 	/* We now have C(1)-C(n-1) */
-	for(j=0;j<=N;j++){
+	for(j=0;j<N;j++){
 		if(j==0){
-			C=0;
-		}else if(j==N){
-			C=0;
+			Cj=0;
+			Cj1=solution[j];
 		}else{
-			/* C(row) has index of row-1 into solution */
-			C=solution[j-1];
+			Cj=solution[j-1];
+			if(j+1==N){
+				Cj1=0;
+			}else{
+				Cj1=solution[j];
+			}
 		}
-		fprintf(stdout, "C%d: %g\n",j, C);
 
+		/* Make call to Solve_Coeff */
+		solve_coeff(points, spline, Cj, Cj1, j);
 
 	}
 
@@ -172,6 +173,24 @@ static void tridiagonal(Points *points, CSplines *spline, MatElement **matrix, V
 
 	fprintf(stdout, "Solution vector: \n");
 	vector_print(solution, " %g ", numRows);
+}
+
+
+void solve_coeff(Points *points, CSplines *spline, double Cj, double Cj1, int j){
+
+	/* Declare values of coefficients */
+	double A, B, D;
+
+	/* Solve for D */
+	D=(Cj1-Cj)/(3 *(points->X[j+1]-points->X[j]));
+
+	/* Solve for B */
+	B=((points->Y[j+1]-points->Y[j])/(points->X[j+1]-points->X[j])) - ((((2*Cj)+Cj1)/3)*(points->X[j+1] - points->X[j]));
+
+	/* Solve for A */
+	A=points->Y[j];
+
+	fprintf(stdout,"Spline Values starting at: %g\nA: %g\nB: %g\nC: %g\nD: %g\n\n",points->X[j], A, B, Cj, D); 
 
 
 }

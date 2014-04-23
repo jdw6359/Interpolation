@@ -7,9 +7,16 @@
 #define GROWTH_AMOUNT (10)
 
 
-void CreatePoints(Points *points);
+void CreatePoints(Points*);
 
-unsigned int PushToPoints(Points *points, double *X, double *Y);
+unsigned int PushToPoints(Points*, double*, double*);
 
-void DestroyPoints(Points *points);
+void DestroyPoints(Points*);
 
+
+
+void CreateSpline(CSplines*);
+
+unsigned int PushToSpline(CSplines*, double*, double*, double*, double*, double*);
+
+void DestroySpline(CSplines*);

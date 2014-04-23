@@ -93,4 +93,8 @@ extern double cspline_eval( double, CSplines* );
 
 
 
+
+void solve_coeff(Points*, CSplines*, double, double, int);
+
+
 #endif /*  _INTERP_H_ */
