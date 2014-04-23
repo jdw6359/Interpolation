@@ -4,7 +4,7 @@
  */
 
 
-#define GROWTH_AMOUNT (10)
+#define GROWTH_AMOUNT (5)
 
 
 void CreatePoints(Points*);
@@ -12,7 +12,6 @@ void CreatePoints(Points*);
 unsigned int PushToPoints(Points*, double*, double*);
 
 void DestroyPoints(Points*);
-
 
 
 void CreateSpline(CSplines*);

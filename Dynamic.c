@@ -54,7 +54,7 @@ unsigned int PushToPoints(Points *points, double *X, double *Y){
 		points->X=realloc(points->X, points->Size * sizeof(double));
 		points->Y=realloc(points->Y, points->Size * sizeof(double));
 
-		fprintf(stdout, "*************REALLOC COMPLETE**********\nSize now: %d\n", points->Size);
+		fprintf(stdout, "*************REALLOC TO SIZE %d**********\n", points->Size);
 
 		/* Check to make sure that memory was properly reallocated */
 		if((points->X==NULL) || (points->Y==NULL)){
@@ -73,8 +73,6 @@ unsigned int PushToPoints(Points *points, double *X, double *Y){
 	/* Increment the number of elements used in the array */
 	points->N++;
 
-	fprintf(stdout, "Added %g and %g to points\n", points->X[points->N-1], points->Y[points->N-1]);
-
 	/* Return the index of the last element inserted */
 	return (unsigned int) (points->N-1); 
 
@@ -86,8 +84,44 @@ unsigned int PushToPoints(Points *points, double *X, double *Y){
 
 unsigned int PushToSpline(CSplines *spline, double *a, double *b, double *c, double *d, double *X){
 
+	/* Do the arrays need to be made larger? */
+	if(spline->N==spline->Size){
 
-	return 0;
+		/* Increase the size of the dynamic arrays */
+		spline->Size+=GROWTH_AMOUNT;
+
+		/* Reallocate storage for the array elements using a larger size */
+		spline->a=realloc(spline->a, spline->Size * sizeof(double));
+		spline->b=realloc(spline->b, spline->Size * sizeof(double));
+		spline->c=realloc(spline->c, spline->Size * sizeof(double));
+		spline->d=realloc(spline->d, spline->Size * sizeof(double));
+		spline->X=realloc(spline->X, spline->Size * sizeof(double));
+
+		fprintf(stdout, "*************REALLOC TO SIZE %d**********\n", spline->Size);
+
+		/* Check to make sure that memory was properly reallocated */
+		if((spline->a==NULL)||(spline->b==NULL)||(spline->c==NULL)||(spline->d==NULL)||(spline->X==NULL)){
+			fprintf(stdout, "PushToSpline() realloc() failed!\n");
+		}
+
+	}
+	/* realloc completed */
+
+	/* copy the point value into the array where the insertion index is pointing */
+	memcpy(&(spline->a[spline->N]), a, sizeof(double));
+	memcpy(&(spline->b[spline->N]), b, sizeof(double));
+	memcpy(&(spline->c[spline->N]), c, sizeof(double));
+	memcpy(&(spline->d[spline->N]), d, sizeof(double));
+	memcpy(&(spline->X[spline->N]), X, sizeof(double));
+
+	/* increment the number of elements used in the array */
+	spline->N++;
+
+	fprintf(stdout, "Added spline segment\n");
+
+	return (unsigned int) (spline->N-1);
+
+
 }
 /* End push to spline */
 

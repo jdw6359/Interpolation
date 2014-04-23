@@ -48,7 +48,7 @@ int main(int argc, char *argv[]){
 				CreatePoints(&points);
 
 				/* Call to Create Splines structure */
-
+				CreateSpline(&spline);
 
 				/* Scan the first two values for deriv at A and B */
 				fscanf(inputFile, "%lf %lf", &derivA, &derivB);
@@ -56,32 +56,22 @@ int main(int argc, char *argv[]){
 
 				while(fscanf(inputFile, "%lf %lf", &xVal, &yVal)!=EOF){
 
-
-					fprintf(stdout, "Scanned in %g and %g\n", xVal, yVal);
 					PushToPoints(&points, &xVal, &yVal);
 
 				}
 
-				fprintf(stdout, "values of points: %g\n", points.X[1]);
-				fprintf(stdout, "values of points: %g\n", points.X[2]);
-				fprintf(stdout, "values of points: %g\n", points.X[3]);
-
-
-
-
-
 				if((strcmp(argv[1], "-nak")==0)){
 					cspline_nak(&points, &spline);
-
+					display_spline(&spline, &points);
 				}
 				if((strcmp(argv[1],"-natural")==0)){
 					cspline_natural(&points, &spline);
-
+					display_spline(&spline, &points);
 				}
 				if((strcmp(argv[1],"-clamped")==0)){
 					cspline_clamped(&points,derivA,derivB, &spline); 
+					display_spline(&spline, &points);
 				}
-
 
 			}
 			/* end check for file opening properly */
@@ -100,8 +90,6 @@ int main(int argc, char *argv[]){
 			fprintf(stdout,"hw7 takes agruments of -nak, -natural, -clamped, and -e\n");
 
 		}
-
-
 
 	}else{
 

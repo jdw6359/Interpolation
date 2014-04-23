@@ -105,14 +105,6 @@ extern void cspline_natural(Points *points, CSplines *spline){
 		right[row]=alpha;
 	}
 
-	matrix_print(matrix, " %g ", numRows, numRows);
-
-	vector_print(right, " %g ", numRows);
-
-	fprintf(stdout, "solution: \n");
-
-	vector_print(solution, " %g ", numRows);
-
 	tridiagonal(points, spline, matrix, right, solution, numRows);
 
 	/* We now have C(1)-C(n-1) */
@@ -171,8 +163,6 @@ static void tridiagonal(Points *points, CSplines *spline, MatElement **matrix, V
 
 	print_plu(matrix, perm, numRows);
 
-	fprintf(stdout, "Solution vector: \n");
-	vector_print(solution, " %g ", numRows);
 }
 
 
@@ -192,5 +182,33 @@ void solve_coeff(Points *points, CSplines *spline, double Cj, double Cj1, int j)
 
 	fprintf(stdout,"Spline Values starting at: %g\nA: %g\nB: %g\nC: %g\nD: %g\n\n",points->X[j], A, B, Cj, D); 
 
+	/* Make push to spline */
+	PushToSpline(spline, &A, &B, &Cj, &D, &points->X[j]);
 
 }
+
+void display_spline(CSplines *spline, Points *point){
+
+	int j;
+
+	double x1;
+
+	int N=spline->N;
+
+
+	fprintf(stdout, "Displaying splines in format  X(j)  X(j+1)  D(j)  C(j)  B(j)  A(j)\n");
+
+	for(j=0;j<N;j++){
+
+		if(j==(N-1)){
+			x1=point->X[j+1];
+		}else{
+			x1=spline->X[j+1];
+		}
+		fprintf(stdout, "%g  %g  %g  %g  %g  %g\n", spline->X[j],x1, spline->d[j], spline->c[j], spline->b[j], spline->a[j]);
+
+	}
+	/* End for loop */
+
+}
+/* end display spline */

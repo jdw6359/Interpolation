@@ -96,5 +96,8 @@ extern double cspline_eval( double, CSplines* );
 
 void solve_coeff(Points*, CSplines*, double, double, int);
 
+void display_spline(CSplines*, Points*);
+
+
 
 #endif /*  _INTERP_H_ */
