@@ -23,6 +23,27 @@ void CreatePoints(Points *points){
 }
 /* End create points */
 
+void CreateSpline(CSplines *spline){
+
+	/* Set N(entries used) to 0 */
+	spline->N=0;
+
+	/* Set Size(Size of dynamic Arrays to 0 */
+	spline->Size=0;
+
+	/* No memory needs to be allocated just yet */
+	spline->a=NULL;
+	spline->b=NULL;
+	spline->c=NULL;
+	spline->d=NULL;
+	spline->X=NULL;
+
+}
+/* End create spline */
+
+
+
+
 unsigned int PushToPoints(Points *points, double *X, double *Y){
 
 

@@ -17,6 +17,7 @@ typedef struct
    double *c;    /* Pointer to Quadratic coefficients   */
    double *d;    /* Pointer to Cubic coefficients       */
    double *X;    /* Pointer interpolation interval  partition */
+   int Size;     /* Size of the dynamic arrays          */
    } CSplines;
 
 typedef struct

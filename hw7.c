@@ -38,11 +38,16 @@ int main(int argc, char *argv[]){
 				/* Declare a points variable */
 				Points points;
 
+				/* Declare a splines variable */
+				CSplines spline;
+
 				/* Values to be scanned in */
 				double xVal, yVal;
 
 				/* Call to create points structure */
 				CreatePoints(&points);
+
+				/* Call to Create Splines structure */
 
 
 				/* Scan the first two values for deriv at A and B */
@@ -58,27 +63,16 @@ int main(int argc, char *argv[]){
 				}
 
 
-
-
-
-
-
-
-
-
 				if((strcmp(argv[1], "-nak")==0)){
-					fprintf(stdout, "Starting nak\n");
-
+					cspline_nak(&points, &spline);
 
 				}
 				if((strcmp(argv[1],"-natural")==0)){
-					fprintf(stdout,"Starting natural\n");
-
+					cspline_natural(&points, &spline);
 
 				}
 				if((strcmp(argv[1],"-clamped")==0)){
-					fprintf(stdout,"Starting clamped\n");
-
+					cspline_clamped(&points,derivA,derivB, &spline); 
 				}
 
 

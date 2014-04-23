@@ -8,6 +8,7 @@
 
 #include "interp.h"
 #include "Dynamic.h"
+#include "linalg.h"
 
 /* CSplines Struct:
  * int N       number of elements in array
@@ -30,15 +31,6 @@ static void tridiagonal();
 
 /* Finds the coefficients of the clamped cubic spline for a given set of data */
 extern void cspline_clamped(Points *data, double derivA, double derivB, CSplines *splines){
-
-	fprintf(stdout, "Setting up clamped system of equations\n");
-
-	fprintf(stdout, "Calling solve tridiagnol\n");
-
-	tridiagonal();
-
-	fprintf(stdout, "Evaluating function\n");
-
 
 }
 
