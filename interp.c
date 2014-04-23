@@ -44,34 +44,43 @@ extern void cspline_natural(Points *points, CSplines *spline){
 	/* If there are N number of points, then there are N-1 number of splines */
 	int numRows=points->N-2;
 
+	/* N represents num points - 1 */
+	int N=points->N-1;
+
 	/* Declare matrix variable */
 	MatElement **matrix;
 
-	/* Declare right vector variable */
-	VectorElement *right;
+	/* Declare right vector and solution variable */
+	VectorElement *right, *solution;
 
-	int row, col, j;
+	/* Declare values for counters */
+	int row, col, j, startingCol, count;
 
-	int startingCol, count;
-
+	/* Declare values that will be put into our linear system */
 	double hValue,alpha;
 
+	/* Declare the coefficient values that will be solved for */
+	double A,B,C,D;
 
+
+	/* Make calls to allocate memory for matrices and vectors */
 	matrix=matrix_alloc(numRows, numRows);
-
 	right=vector_alloc(numRows);
-
+	solution=vector_alloc(numRows);
 
 
 	for(row=0;row<numRows;row++){
 
+		/* The col that our values will start to be put into */
 		startingCol=row-1;
 
+		/* Count represents the basis for the formula that we will be using */
 		for(count=0;count<3;count++){
 
-
+			/* The col we are on is the sum of the column that we start on and the count */
 			col=startingCol+count;
 
+			/* check to make sure [row][col] is in bounds */
 			if((col>=0)&&(col<numRows)){
 
 				/* if count is zero, h sub row */
@@ -82,22 +91,20 @@ extern void cspline_natural(Points *points, CSplines *spline){
 				}else if(count==2){
 					hValue=points->X[row+2] - points->X[row+1];
 				}
+				/* Set value */
 				matrix[row][col]=hValue;
 			}
-
 		}
-
 	}
 
+	/* Set "right" values */
 	for(row=0;row<numRows;row++){
 
 		/* J is the "sub value" */
 		j=row+1;
 
-
-
+		/* compute and set value of alpha */
 		alpha=3 *(((points->Y[j+1] - points->Y[j])/(points->X[j+1]-points->X[j])) - ((points->Y[j]-points->Y[j-1])/(points->X[j-1] - points->X[j])));
-
 		right[row]=alpha;
 	}
 
@@ -105,7 +112,29 @@ extern void cspline_natural(Points *points, CSplines *spline){
 
 	vector_print(right, " %g ", numRows);
 
-	tridiagonal(points, spline, matrix, right, numRows);
+	fprintf(stdout, "solution: \n");
+
+	vector_print(solution, " %g ", numRows);
+
+	tridiagonal(points, spline, matrix, right, solution, numRows);
+
+	/* We now have C(1)-C(n-1) */
+	for(j=0;j<=N;j++){
+		if(j==0){
+			C=0;
+		}else if(j==N){
+			C=0;
+		}else{
+			/* C(row) has index of row-1 into solution */
+			C=solution[j-1];
+		}
+		fprintf(stdout, "C%d: %g\n",j, C);
+
+
+	}
+
+
+
 }
 
 /* Finds the coefficients of the not-a-knot cubic cpline for a given set of data */
@@ -124,8 +153,25 @@ extern double cspline_eval(double x, CSplines *splines){
 
 
 
-static void tridiagonal(Points *points, CSplines *spline, MatElement **matrix, VectorElement *right, int numRows){
+static void tridiagonal(Points *points, CSplines *spline, MatElement **matrix, VectorElement *right, VectorElement *solution, int numRows){
 
-	fprintf(stdout, "tridiagnol called\n");
+
+	/* Declare perm vector */
+	MatElement **perm;
+
+	/* Create permutation matrix */
+	perm=matrix_identity(numRows);
+
+	/* Make call to linalg_LU_decomp */
+	linalg_LU_decomp(matrix, perm, numRows);
+
+	/* make call to linalg_LU_solve */
+	linalg_LU_solve(matrix, perm, right, solution, numRows);
+
+	print_plu(matrix, perm, numRows);
+
+	fprintf(stdout, "Solution vector: \n");
+	vector_print(solution, " %g ", numRows);
+
 
 }
