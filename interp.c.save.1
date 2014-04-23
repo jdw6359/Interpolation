@@ -38,30 +38,33 @@ extern void cspline_clamped(Points *data, double derivA, double derivB, CSplines
 
 
 /* Finds the coefficients of the antural cubic spline for a given set of data */
-extern void cspline_natural(Points *points, CSplines *spline){
+extern void cspline_natural(Points *points, CSplines *splines){
 
 	/* Set numRows equal to number of data points in points struct -1 */
 	/* If there are N number of points, then there are N-1 number of splines */
 	int numRows=points->N-2;
 
-	/* Declare matrix variable */
-	MatElement **matrix;
+	/* Declare matrix and perm variables */
+	MatElement **matrix, **perm;
 
-	/* Declare right vector variable */
-	VectorElement *right;
-
-	int row, col, j;
-
-	int startingCol, count;
-
-	double hValue,alpha;
-
+	/* Declare right and solution vector variables */
+	VectorElement *right, *solution;
 
 	matrix=matrix_alloc(numRows, numRows);
 
+	perm=matrix_identity(numRows);
+
 	right=vector_alloc(numRows);
 
+	solution=vector_alloc(numRows);
 
+	int row, col;
+
+	int startingCol;
+
+	int count;
+
+	double hValue;
 
 	for(row=0;row<numRows;row++){
 
@@ -73,6 +76,7 @@ extern void cspline_natural(Points *points, CSplines *spline){
 			col=startingCol+count;
 
 			if((col>=0)&&(col<numRows)){
+				fprintf(stdout,"Inserting value at Row %d and Col %d\n", row, col);
 
 				/* if count is zero, h sub row */
 				if(count==0){
@@ -89,23 +93,11 @@ extern void cspline_natural(Points *points, CSplines *spline){
 
 	}
 
-	for(row=0;row<numRows;row++){
-
-		/* J is the "sub value" */
-		j=row+1;
-
-
-
-		alpha=3 *(((points->Y[j+1] - points->Y[j])/(points->X[j+1]-points->X[j])) - ((points->Y[j]-points->Y[j-1])/(points->X[j-1] - points->X[j])));
-
-		right[row]=alpha;
-	}
+	for(row=1
 
 	matrix_print(matrix, " %g ", numRows, numRows);
 
-	vector_print(right, " %g ", numRows);
-
-	tridiagonal(points, spline, matrix, right, numRows);
+	tridiagonal();
 }
 
 /* Finds the coefficients of the not-a-knot cubic cpline for a given set of data */
@@ -124,7 +116,7 @@ extern double cspline_eval(double x, CSplines *splines){
 
 
 
-static void tridiagonal(Points *points, CSplines *spline, MatElement **matrix, VectorElement *right, int numRows){
+static void tridiagonal(){
 
 	fprintf(stdout, "tridiagnol called\n");
 

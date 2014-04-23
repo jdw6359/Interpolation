@@ -62,6 +62,13 @@ int main(int argc, char *argv[]){
 
 				}
 
+				fprintf(stdout, "values of points: %g\n", points.X[1]);
+				fprintf(stdout, "values of points: %g\n", points.X[2]);
+				fprintf(stdout, "values of points: %g\n", points.X[3]);
+
+
+
+
 
 				if((strcmp(argv[1], "-nak")==0)){
 					cspline_nak(&points, &spline);

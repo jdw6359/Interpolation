@@ -8,14 +8,22 @@
 
 /* Allocate memory space for matrix, all at once */
 MatElement **matrix_alloc(int nr, int nc) {
-  int i;
+  int i,j;
   MatElement *ptr;
   MatElement **A;
 
   A = malloc( nr * sizeof(MatElement *));    /* array of ptrs   */
   ptr = calloc( nr*nc, sizeof(MatElement) ); /* matrix elements */
-  for (i=0; i<nr; i++)             /* set row pointers properly */
+  for (i=0; i<nr; i++){             /* set row pointers properly */
     A[i] = ptr + nc*i;
+  }
+  for(i=0;i<nr;i++){
+	for(j=0;j<nc;j++){
+		A[i][j]=0.0;
+	}
+  }
+
+
   return A;
 }
 
