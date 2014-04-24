@@ -109,14 +109,26 @@ extern void cspline_clamped(Points *points, double derivA, double derivB, CSplin
 
 		}
 
+
+		fprintf(stdout, "Value of row: %d\n", row);
 		right[row]=alpha;
 
 	}
 
 	matrix_print(matrix, " %g ", numRows, numRows);
 
+	vector_print(right, " %g ", numRows);
+
 	tridiagonal(points, spline, matrix, right, solution, numRows);
 
+	fprintf(stdout, "Solution: \n");
+	vector_print(solution, " %g ", numRows);
+
+	for(j=0;j<numRows-1;j++){
+
+		solve_coeff(points, spline, solution[j], solution[j+1], j);
+
+	}
 
 
 }

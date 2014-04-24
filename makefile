@@ -26,13 +26,13 @@ linalg.o: linalg.c
 	$(CC) $(CFLAGS) -c linalg.c
 
 
-natural:
+natural: hw7
 	./hw7 -natural $(FILE)
 
-clamped:
+clamped: hw7
 	./hw7 -clamped $(FILE)
 
-nak:
+nak: hw7
 	./hw7 -nak $(FILE)
 
 
