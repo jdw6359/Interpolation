@@ -30,7 +30,92 @@
 static void tridiagonal();
 
 /* Finds the coefficients of the clamped cubic spline for a given set of data */
-extern void cspline_clamped(Points *data, double derivA, double derivB, CSplines *splines){
+extern void cspline_clamped(Points *points, double derivA, double derivB, CSplines *spline){
+
+	/* Set numRows equal to data points in struct -1 */
+	/* If there are N number of points, then there are N-1 number of splines */
+	int numRows=points->N;
+
+	/* N represents num points-1 */
+
+	/* Declare matrix variable */
+	MatElement **matrix;
+
+	/* Declare right vector and solution variables */
+	VectorElement *right, *solution;
+
+	/* Declare values for counters */
+	int row, col, j, startingCol, count;
+
+	/* Declare values that will be put into our linear system as well as C, C+1 */
+	double hValue, alpha, Cj, Cj1;
+
+	/* Make calls to allocate memory for matrices and vectors */
+	matrix=matrix_alloc(numRows, numRows);
+	right=vector_alloc(numRows);
+	solution=vector_alloc(numRows);
+
+	for(row=0;row<numRows;row++){
+
+		/* The col that our values will start to be put into */
+		startingCol=row-1;
+
+		/* Count represents the basis for the formula that we will be using */
+		for(count=0;count<3;count++){
+
+			/* the col we are on is the sum of the column that we start at */
+			col=startingCol+count;
+
+			/* Check to make sure [row][col] is in bounds */
+			if((col>=0)&&(col<numRows)){
+
+				/* if count is zero, h sub row */
+				if(count==0){
+					/* hValue is equal to h(row-1) */
+					hValue=points->X[row] - points->X[row-1];
+
+				}else if(count==1){
+					hValue=2*((points->X[row] - points->X[row-1])+(points->X[row+1] - points->X[row]));
+					if(row==0){
+						hValue=2*(points->X[row+1] - points->X[row]);
+					}
+
+
+
+				}else if(count==2){
+					hValue=(points->X[row+1] - points->X[row]);
+
+				}
+
+				/* Set value */
+				matrix[row][col]=hValue;
+			}
+		}
+	}
+
+	/* Set "right" values */
+	for(row=0;row<numRows;row++){
+
+		if(row==0){
+
+			alpha=3*( (points->Y[row+1] - points->Y[row]) / (points->X[row+1] - points->X[row] ) )-derivA;
+
+		}else if(row==numRows-1){
+
+			alpha=3*(derivB - ( (points->Y[row] - points->Y[row-1] )/(points->X[row]-points->X[row-1] ) ) );
+		}else{
+
+			alpha=3 * ( ( (points->Y[row+1] - points->Y[row])/(points->X[row+1] - points->X[row])) - ((points->Y[row] - points->Y[row-1])/(points->X[row] - points->X[row-1])      )  );
+
+		}
+
+		right[row]=alpha;
+
+	}
+
+	matrix_print(matrix, " %g ", numRows, numRows);
+
+	tridiagonal(points, spline, matrix, right, solution, numRows);
 
 
 
