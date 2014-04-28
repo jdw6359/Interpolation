@@ -109,20 +109,11 @@ extern void cspline_clamped(Points *points, double derivA, double derivB, CSplin
 
 		}
 
-
-		fprintf(stdout, "Value of row: %d\n", row);
 		right[row]=alpha;
 
 	}
 
-	matrix_print(matrix, " %g ", numRows, numRows);
-
-	vector_print(right, " %g ", numRows);
-
 	tridiagonal(points, spline, matrix, right, solution, numRows);
-
-	fprintf(stdout, "Solution: \n");
-	vector_print(solution, " %g ", numRows);
 
 	for(j=0;j<numRows-1;j++){
 
@@ -340,7 +331,6 @@ extern void cspline_nak(Points *points, CSplines *spline){
 		solve_coeff(points, spline, Cj, Cj1, j);
 	}
 
-	matrix_print(matrix, " %g ", numRows, numRows);
 }
 
 
@@ -367,7 +357,6 @@ static void tridiagonal(Points *points, CSplines *spline, MatElement **matrix, V
 
 	linalg_LU_solve(matrix, perm, right, solution, numRows);
 
-	print_plu(matrix, perm, numRows);
 
 }
 
