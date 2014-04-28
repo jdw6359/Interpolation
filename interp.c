@@ -375,8 +375,6 @@ void solve_coeff(Points *points, CSplines *spline, double Cj, double Cj1, int j)
 	/* Solve for A */
 	A=points->Y[j];
 
-	fprintf(stdout,"Spline Values starting at: %g\nA: %g\nB: %g\nC: %g\nD: %g\n\n",points->X[j], A, B, Cj, D); 
-
 	/* Make push to spline */
 	PushToSpline(spline, &A, &B, &Cj, &D, &points->X[j]);
 
@@ -390,8 +388,6 @@ void display_spline(CSplines *spline, Points *point){
 
 	int N=spline->N;
 
-
-	fprintf(stdout, "Displaying splines in format  X(j)  X(j+1)  D(j)  C(j)  B(j)  A(j)\n");
 
 	for(j=0;j<N;j++){
 

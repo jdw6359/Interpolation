@@ -1,24 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 CC=gcc
 
 CFLAGS= -Wall -ansi -pedantic
@@ -57,10 +36,29 @@ nak: hw7
 	./hw7 -nak $(FILE)
 
 
+all_sparameters: nak_sparameters natural_sparameters clamped_sparameters
+
+nak_sparameters:
+	./hw7 -nak $(FILE) > sparameters1.txt
+
+natural_sparameters:
+	./hw7 -natural $(FILE) > sparameters2.txt
+
+clamped_sparameters:
+	./hw7 -clamped $(FILE) > sparameters3.txt
 
 
 
+all_eval: all_sparameters nak_eval natural_eval clamped_eval
 
+nak_eval:
+	./hw7 -e sparameters1.txt eval.txt
+
+natural_eval:
+	./hw7 -e sparameters2.txt eval.txt
+	
+clamped_eval:
+	./hw7 -e sparameters3.txt eval.txt
 
 
 clean:

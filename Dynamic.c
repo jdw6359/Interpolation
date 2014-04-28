@@ -54,7 +54,6 @@ unsigned int PushToPoints(Points *points, double *X, double *Y){
 		points->X=realloc(points->X, points->Size * sizeof(double));
 		points->Y=realloc(points->Y, points->Size * sizeof(double));
 
-		fprintf(stdout, "*************REALLOC TO SIZE %d**********\n", points->Size);
 
 		/* Check to make sure that memory was properly reallocated */
 		if((points->X==NULL) || (points->Y==NULL)){
@@ -97,7 +96,6 @@ unsigned int PushToSpline(CSplines *spline, double *a, double *b, double *c, dou
 		spline->d=realloc(spline->d, spline->Size * sizeof(double));
 		spline->X=realloc(spline->X, spline->Size * sizeof(double));
 
-		fprintf(stdout, "*************REALLOC TO SIZE %d**********\n", spline->Size);
 
 		/* Check to make sure that memory was properly reallocated */
 		if((spline->a==NULL)||(spline->b==NULL)||(spline->c==NULL)||(spline->d==NULL)||(spline->X==NULL)){
@@ -117,7 +115,6 @@ unsigned int PushToSpline(CSplines *spline, double *a, double *b, double *c, dou
 	/* increment the number of elements used in the array */
 	spline->N++;
 
-	fprintf(stdout, "Added spline segment\n");
 
 	return (unsigned int) (spline->N-1);
 

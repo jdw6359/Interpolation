@@ -17,7 +17,7 @@ int main(int argc, char *argv[]){
 
 
 		/* Check to see that argv[1] is one of three expected values */
-		if( (strcmp(argv[1], "-nak")==0) || (strcmp(argv[1],"-natural")==0) || (strcmp(argv[1],"-clamped")==0)){
+		if( ((strcmp(argv[1], "-nak")==0) || (strcmp(argv[1],"-natural")==0) || (strcmp(argv[1],"-clamped")==0))&&(argc==3)){
 
 			/* Declare pointer to file object */
 			FILE* inputFile;
@@ -82,12 +82,26 @@ int main(int argc, char *argv[]){
 
 
 		/* Check to see that argv[1] is "-e" */
-		else if(strcmp(argv[1],"-e")==0){
+		else if((strcmp(argv[1],"-e")==0)&&(argc==4)){
+
+			/* Declare pointer to file objects */
+			FILE *splineFile, *evalFile;
+
+			/* attempt to open both files */
+			splineFile=fopen(argv[2], "r");
+			evalFile=fopen(argv[3], "r");
+
+			/* Check to make sure that both files were opened properly */
+			if((splineFile==NULL)||(evalFile==NULL)){
+				fprintf(stdout, "\nFiles were not opened properly\n");
+			}else{
+				printf("files opened properly\n");
+			}
 
 		}
 		/* end check for "-e" */
 		else{
-			fprintf(stdout,"hw7 takes agruments of -nak, -natural, -clamped, and -e\n");
+			fprintf(stdout, "Usage: hw7 <-nak, natural, clamped> data.txt\nUsage: hw7 -e sparameters.txt eval.txt\n");
 
 		}
 
