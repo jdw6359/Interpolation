@@ -338,9 +338,9 @@ extern void cspline_nak(Points *points, CSplines *spline){
 extern void cspline_eval(double x, double maxX, CSplines *spline){
 
 	/* loop counter */
-	int i;
+	int i,j;
 
-	double minX;
+	double minX,value;
 
 	minX=spline->X[0];
 
@@ -361,20 +361,19 @@ extern void cspline_eval(double x, double maxX, CSplines *spline){
 	/* perform evaluation loop */
 	for(i=0;i< spline->N;i++){
 		if(i+1==spline->N){
-			printf("eval at spline %d\n", i);
-			return;
+			j=i;
+			break;
 		}else if((x>=spline->X[i])&&(x<= spline->X[i+1])){
-			printf("eval at spline %d\n", i);
-			return;
+			j=i;
+			break;
 		}
 
 
 	}
 
+	value=(spline->a[j]) + (spline->b[j] * (x-spline->X[j])) + (spline->c[j] * ((x-spline->X[j])*(x-spline->X[j]))) + (spline->d[j] * ((x-spline->X[j])*(x-spline->X[j])*(x-spline->X[j])));
 
-
-	printf("Lower and upper: %g -> %g\n", minX,maxX);
-
+	fprintf(stdout,"%g %g\n",x,value);
 
 
 }

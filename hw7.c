@@ -109,7 +109,7 @@ int main(int argc, char *argv[]){
 				CSplines spline;
 				CreateSpline(&spline);
 
-				while(fscanf(splineFile, "%lf %lf %lf %lf %lf %lf",&x,&maxX,&a,&b,&c,&d )!=EOF){
+				while(fscanf(splineFile, "%lf %lf %lf %lf %lf %lf",&x,&maxX,&d,&c,&b,&a )!=EOF){
 
 					/* Make call to Push to splines */
 					PushToSpline(&spline, &a, &b, &c, &d, &x);

@@ -1,0 +1,76 @@
+**********************************************************
+1) Results from improper args cmdline args:
+**********************************************************
+
+The first example indicaes a situation in which there are 
+not enough args and a usage statement is printed
+
+The second example indicates a situation in which the 
+filename provided is invalid and there was trouble opening
+the file(typically due to user input error)
+
+The third instance represents all arguments being proper, but
+with extra unnecessary arguments provided; usage stmt given. 
+
+*******COMMAND LINE ARGS********
+./hw7 -natural 
+
+Usage: hw7 <-nak, natural, clamped> data.txt
+Usage: hw7 -e sparameters.txt eval.txt
+
+*******COMMAND LINE ARGS********
+./hw7 -natural data
+
+File was not opened properly
+
+*******COMMAND LINE ARGS********
+./hw7 -natural data.txt f
+
+Usage: hw7 <-nak, natural, clamped> data.txt
+Usage: hw7 -e sparameters.txt eval.txt
+
+
+
+**********************************************************
+2) Demonstration program works with varying num args 
+**********************************************************
+
+In the example below, a file (testdata.txt) was created, and
+there were 3 points in the file. The program executed successfully
+due to the fact that there are N number of splines used to represent
+N+1 points.
+
+*******COMMAND LINE ARGS*******
+./hw7 -natural testdata.txt
+
+5.224  6.78  -0.537498  0  5.01344  4.654
+6.78  8.432  0.506264  -2.50904  -6.3148  10.43
+
+
+
+*********************************************************
+3) Generation of evaluation 
+*********************************************************
+
+The verification of this criterea can be found in eresults?.txt, 
+and the x values can be found in eval.txt
+
+After developing the sparameters functionality, I then was able
+to redirect the splines from the various alrogithms to seperate
+sparameters?.txt files. I then was able to generate my splines accordingly
+and evaluate at points given in eval.txt
+
+*********************************************************
+4) Makefile
+*********************************************************
+ The makefile provided is extremely robust, and is able to 
+perform a variety of tasks. 
+
+The important targets:
+	make all_eval  (generate splines, generate results, store output in
+			.txt files )
+	make all_splines (generate splines, store in sparameters?.txt)
+
+
+
+ 

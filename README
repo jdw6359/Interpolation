@@ -1,0 +1,26 @@
+To test program:
+	<make> will compile program to executable "hw7"
+
+	<make natural>,<make clamped>,<make nak> will run 
+	each individual algoright and produce the spline 
+	results to stdout
+
+	<make nak_sparameters>,<make natural_sparameters>,
+	<make clamped_sparameters> will generate splines for the
+	specific algorithm and then direct to sparameters?.txt file
+
+	<make all_spline> will generate splines for each algorigthm
+	and directs splines to sparamters?.txt files
+
+	
+	<make nak_eval>,<make natural_eval>,<make clamped_eval>
+	will read the splines from sparameters?.txt, and data
+	points from eval.txt and evaluate that point using the
+	provided splines.
+
+	*******************************************************
+	<make all_eval> is the only target that NEEDS to be run, 
+	it will targer <make all_splines> to generate all of the 
+	splines, and it will then evaluate the points from eval.txt
+	and redirect output to eresults?.txt 
+	*******************************************************
