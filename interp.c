@@ -335,11 +335,48 @@ extern void cspline_nak(Points *points, CSplines *spline){
 
 
 /* Evaluates a cubic spline at a given point */
-extern double cspline_eval(double x, double maxX, CSplines *splines){
+extern void cspline_eval(double x, double maxX, CSplines *spline){
 
-	printf("Evaluating at point %g\n",x);
+	/* loop counter */
+	int i;
 
-	return 0.0;
+	double minX;
+
+	minX=spline->X[0];
+
+	/* Check to make sure that point is not less than min */
+	if(x<minX){
+
+		printf("%f  X Value beyond lower bound\n",x);
+		return;
+	}
+
+	/* Check to make sure that point is not greater than max */
+	if(x>maxX){
+
+		printf("%g  X Value beyond upper bound of %g\n",x,maxX);
+		return;
+	}
+
+	/* perform evaluation loop */
+	for(i=0;i< spline->N;i++){
+		if(i+1==spline->N){
+			printf("eval at spline %d\n", i);
+			return;
+		}else if((x>=spline->X[i])&&(x<= spline->X[i+1])){
+			printf("eval at spline %d\n", i);
+			return;
+		}
+
+
+	}
+
+
+
+	printf("Lower and upper: %g -> %g\n", minX,maxX);
+
+
+
 }
 
 

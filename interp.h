@@ -72,7 +72,7 @@ extern void cspline_nak( Points*, CSplines* );
           Splines Coefficients of Cubic Spline Interpolants 
 *****************************************************************************************/
 
-extern double cspline_eval( double, double, CSplines* );
+extern void cspline_eval( double, double, CSplines* );
 /***************************************************************************************
  cspline_eva
        Evaluates a cubic spline at a give point 
