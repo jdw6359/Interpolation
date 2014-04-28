@@ -95,7 +95,33 @@ int main(int argc, char *argv[]){
 			if((splineFile==NULL)||(evalFile==NULL)){
 				fprintf(stdout, "\nFiles were not opened properly\n");
 			}else{
-				printf("files opened properly\n");
+
+				/* Declare variables to be read from sparameters file */
+				double x, a, b, c, d;
+
+				/* Variable that we are scanning in, but ignoring */
+				double maxX;
+
+				/* Variable that we are going to be evaluating at */
+				double evalPoint;
+
+				/* Declare and initialize the spline */
+				CSplines spline;
+				CreateSpline(&spline);
+
+				while(fscanf(splineFile, "%lf %lf %lf %lf %lf %lf",&x,&maxX,&a,&b,&c,&d )!=EOF){
+
+					/* Make call to Push to splines */
+					PushToSpline(&spline, &a, &b, &c, &d, &x);
+				}
+
+				while(fscanf(evalFile, "%lf", &evalPoint)!=EOF){
+					cspline_eval(evalPoint,maxX,&spline);
+					/* make call to eval at given point */
+				}
+
+
+
 			}
 
 		}

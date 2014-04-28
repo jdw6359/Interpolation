@@ -335,9 +335,9 @@ extern void cspline_nak(Points *points, CSplines *spline){
 
 
 /* Evaluates a cubic spline at a given point */
-extern double cspline_eval(double x, CSplines *splines){
+extern double cspline_eval(double x, double maxX, CSplines *splines){
 
-
+	printf("Evaluating at point %g\n",x);
 
 	return 0.0;
 }

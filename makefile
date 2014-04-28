@@ -36,7 +36,7 @@ nak: hw7
 	./hw7 -nak $(FILE)
 
 
-all_sparameters: nak_sparameters natural_sparameters clamped_sparameters
+all_spline: nak_sparameters natural_sparameters clamped_sparameters
 
 nak_sparameters:
 	./hw7 -nak $(FILE) > sparameters1.txt
@@ -49,7 +49,7 @@ clamped_sparameters:
 
 
 
-all_eval: all_sparameters nak_eval natural_eval clamped_eval
+all_eval: all_spline nak_eval natural_eval clamped_eval
 
 nak_eval:
 	./hw7 -e sparameters1.txt eval.txt
